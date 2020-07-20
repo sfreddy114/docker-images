@@ -1,2 +1,4 @@
 # docker-images
-my docker images
+Here lie my docker images. 
+
+Author: Fredo
