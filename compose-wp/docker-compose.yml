@@ -1,0 +1,43 @@
+version: '3'
+services:
+        adminer:
+                image: adminer
+                ports:
+                        - '8080:8080'
+                container_name: adminer
+                networks: 
+                        - wp-net
+        db:
+                image: mysql
+                command: --default-authentication-plugin=mysql_native_password
+                environment:
+                        - MYSQL_ROOT_PASSWORD=secret
+                        - MYSQL_DATABASE=wordpress
+                        - MYSQL_USER=wp_user
+                        - MYSQL_PASSWORD=start123
+                container_name: database
+                networks: 
+                        - wp-net
+                ports:
+                        - '3306:3306'
+                volumes:
+                        - "wp_db:/var/lib/mysql"
+        wordpress:
+                image: wordpress
+                environment:
+                        - WORDPRESS_DB_HOST=database
+                        - WORDPRESS_DB_USER=wp_user
+                        - WORDPRESS_DB_PASSWORD=start123
+                        - WORDPRESS_DB_NAME=wordpress
+                ports:
+                        - '80:80'
+                container_name: wordpress
+                networks: 
+                        - wp-net
+                volumes:
+                        - wp_wp:/var/www/html
+volumes:
+        wp_db:
+        wp_wp:
+networks:
+        wp-net:
