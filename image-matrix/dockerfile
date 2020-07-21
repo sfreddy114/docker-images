@@ -1,0 +1,10 @@
+FROM scratch
+
+LABEL maitainer='Fredo'
+LABEL description='mocny matrix image'
+
+ADD alpine-minirootfs-3.12.0-x86_64.tar.gz /
+
+RUN apk add cmatrix
+
+CMD ["cmatrix"]
